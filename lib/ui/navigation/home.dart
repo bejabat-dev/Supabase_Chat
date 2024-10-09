@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:supabase_chat/modules/riverpod/chats.dart';
 import 'package:supabase_chat/ui/auth/login.dart';
 import 'package:supabase_chat/ui/navigation/pengaturan.dart';
-import 'package:supabase_chat/modules/riverpod/items.dart';
 import 'package:supabase_chat/modules/riverpod/user.dart';
 import 'package:supabase_chat/modules/utils/styles.dart';
 import 'package:supabase_chat/modules/utils/utils.dart';
-import 'package:supabase_chat/ui/widgets/item_list.dart';
-import 'package:supabase_chat/ui/widgets/item_search.dart';
+import 'package:supabase_chat/ui/widgets/chat_room_list.dart'; 
 
 class Home extends ConsumerStatefulWidget {
   const Home({super.key});
@@ -61,14 +60,11 @@ class _HomeState extends ConsumerState<Home> {
     );
   }
 
-  void _doSearch() {
-    ref.read(searchItemsProvider.notifier).search(_searchController.text);
-  }
+ 
 
   @override
   void initState() {
     super.initState();
-    _searchController.addListener(_doSearch);
   }
 
   @override
@@ -228,9 +224,11 @@ class _HomeState extends ConsumerState<Home> {
             ],
           ),
         ),
-        body: _isSearching ? const ItemSearch() : const ItemList(),
+        body: const ChatRoomList(),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            ref.read(chatRoomListProviderProvider.notifier).createChatRoom('user1', 'user2');
+          },
           child: Icon(Icons.chat),
         ));
   }
