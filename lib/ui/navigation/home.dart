@@ -38,7 +38,7 @@ class _HomeState extends ConsumerState<Home> {
           });
           _searchFocus.requestFocus();
         },
-        child: Text('supabase_chat'));
+        child: Text('Chats'));
   }
 
   Widget _searchBar() {

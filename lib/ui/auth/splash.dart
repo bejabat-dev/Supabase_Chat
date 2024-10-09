@@ -37,7 +37,7 @@ class _SplashState extends State<Splash> {
     return Scaffold(
       body: const Center(
         child: Text(
-          'supabase_chat',
+          'Chat App',
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
       ),
