@@ -18,6 +18,7 @@ dependencies:
   supabase_flutter: ^2.8.0
   flutter_signin_button: ^2.0.0
   flutter_dotenv: ^5.1.0
+  json_annotation: ^4.9.0
 
 dev_dependencies:
   flutter_test:
@@ -29,6 +30,7 @@ dev_dependencies:
   custom_lint: ^0.6.4
   json_serializable: ^6.8.0
   freezed: ^2.5.2
+  analyzer: ^5.13.0
 
 flutter:
   uses-material-design: true

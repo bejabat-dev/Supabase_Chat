@@ -23,6 +23,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+          dialogBackgroundColor: Colors.white,
           floatingActionButtonTheme: FloatingActionButtonThemeData(
               backgroundColor: grey, foregroundColor: menuIconColor),
           drawerTheme: DrawerThemeData(
@@ -40,6 +41,8 @@ class MainApp extends StatelessWidget {
               cursorColor: blacker, selectionColor: Colors.blue),
           scaffoldBackgroundColor: Colors.white,
           inputDecorationTheme: InputDecorationTheme(
+            errorBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
             fillColor: const Color.fromARGB(255, 230, 230, 230),
             filled: true,
             border: OutlineInputBorder(

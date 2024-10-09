@@ -11,7 +11,9 @@ class Register extends StatelessWidget {
   final _confirmPassword = TextEditingController();
 
   void _register(BuildContext context) {
-    register(context, _name.text, _email.text, _password.text);
+    if (_myKey.currentState!.validate()) {
+      register(context, _name.text, _email.text, _password.text);
+    }
   }
 
   @override
@@ -33,6 +35,13 @@ class Register extends StatelessWidget {
                   height: 24,
                 ),
                 TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Nama harus diisi';
+                    }
+                    return null;
+                  },
+                  keyboardType: TextInputType.name,
                   controller: _name,
                   decoration: InputDecoration(
                       prefixIcon: Icon(Icons.person), hintText: 'Nama'),
@@ -41,7 +50,17 @@ class Register extends StatelessWidget {
                   height: 16,
                 ),
                 TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Email harus diisi';
+                    }
+                    if (!value.contains('@')) {
+                      return 'Email tidak valid';
+                    }
+                    return null;
+                  },
                   controller: _email,
+                  keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                       prefixIcon: Icon(Icons.mail), hintText: 'Email'),
                 ),
@@ -49,6 +68,16 @@ class Register extends StatelessWidget {
                   height: 16,
                 ),
                 TextFormField(
+                  obscureText: true,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Kata sandi harus diisi';
+                    }
+                    if (value.length < 7) {
+                      return 'Kata sandi harus lebih dari 7 karakter';
+                    }
+                    return null;
+                  },
                   controller: _password,
                   decoration: InputDecoration(
                       prefixIcon: Icon(Icons.password), hintText: 'Kata sandi'),
@@ -57,6 +86,13 @@ class Register extends StatelessWidget {
                   height: 16,
                 ),
                 TextFormField(
+                  obscureText: true,
+                  validator: (value) {
+                    if (_password.text != value) {
+                      return 'Kata sandi tidak sama';
+                    }
+                    return null;
+                  },
                   controller: _confirmPassword,
                   decoration: InputDecoration(
                       prefixIcon: Icon(Icons.password),

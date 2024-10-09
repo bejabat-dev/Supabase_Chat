@@ -11,7 +11,9 @@ class Login extends StatelessWidget {
   final _password = TextEditingController();
 
   void _login(BuildContext context) {
-    login(context, _email.text, _password.text);
+    if (_myKey.currentState!.validate()) {
+      login(context, _email.text, _password.text);
+    }
   }
 
   @override
@@ -32,6 +34,12 @@ class Login extends StatelessWidget {
                   height: 24,
                 ),
                 TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Email harus diisi';
+                    }
+                    return null;
+                  },
                   controller: _email,
                   decoration: InputDecoration(
                       prefixIcon: Icon(Icons.mail), hintText: 'Email'),
@@ -40,6 +48,14 @@ class Login extends StatelessWidget {
                   height: 16,
                 ),
                 TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Kata sandi harus diisi';
+                    }
+                    return null;
+                  },
+                  keyboardType: TextInputType.text,
+                  obscureText: true,
                   controller: _password,
                   decoration: InputDecoration(
                       prefixIcon: Icon(Icons.password), hintText: 'Kata sandi'),
@@ -51,7 +67,9 @@ class Login extends StatelessWidget {
                   children: [
                     Expanded(child: SizedBox()),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        showLoadingDialog(context);
+                      },
                       child: Text(
                         'Lupa kata sandi?',
                         style: TextStyle(color: Colors.blue),

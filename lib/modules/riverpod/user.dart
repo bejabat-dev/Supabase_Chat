@@ -33,6 +33,7 @@ Future<void> register(
 }
 
 Future<void> login(BuildContext context, String email, String password) async {
+  showLoadingDialog(context);
   try {
     final AuthResponse res = await supabase.auth.signInWithPassword(
       email: email,
@@ -42,11 +43,17 @@ Future<void> login(BuildContext context, String email, String password) async {
     final User? user = res.user;
     if (session != null && user != null) {
       if (context.mounted) {
+        Navigator.pop(context);
         navigateAndClear(context, ProviderScope(child: const Home()));
       }
     }
   } on Exception catch (e) {
-    debugPrint(e.toString());
+    if (e.toString().contains('400')) {
+      if (context.mounted) {
+        Navigator.pop(context);
+        showErrorDialog(context, 'Email atau kata sandi salah');
+      }
+    }
   }
 }
 
